@@ -17,6 +17,7 @@ function CategoryList() {
               selectedCategory === index ? "grayscale-0 border-[1px]" : null
             }`}
             onClick={() => setSelectedCategory(index)}
+            key={index}
           >
             <Image
               src={item.icon}
