@@ -1,6 +1,7 @@
 "use client";
 
 import CategoryList from "@/components/Home/CategoryList";
+import GoogleMapView from "@/components/Home/GoogleMapView";
 import RangeSelect from "@/components/Home/RangeSelect";
 import SelectRating from "@/components/Home/SelectRating";
 import { signOut, useSession } from "next-auth/react";
@@ -25,7 +26,9 @@ export default function Home() {
         <RangeSelect />
         <SelectRating />
       </div>
-      <div className=" col-span-3">Second</div>
+      <div className=" col-span-3">
+        <GoogleMapView />
+      </div>
     </div>
   );
 }
