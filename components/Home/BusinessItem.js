@@ -1,11 +1,63 @@
+import { UserLocationContext } from "@/context/UserLocationContext";
 import Image from "next/image";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-function BusinessItem({ business }) {
+function BusinessItem({ business, showDir = false }) {
+  const { userLocation, setUserLocation } = useContext(UserLocationContext);
+  const [distance, setDistance] = useState();
+
   const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   const photo_ref = business?.photos
     ? business?.photos[0]?.photo_reference
     : "";
+
+  useEffect(() => {
+    calculateDistance(
+      business.geometry.location.lat,
+      business.geometry.location.lng,
+      userLocation.lat,
+      userLocation.lng
+    );
+  }, []);
+
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const earthRadius = 6371; // in kilometers
+
+    const degToRad = (deg) => {
+      return deg * (Math.PI / 180);
+    };
+
+    const dLat = degToRad(lat2 - lat1);
+    const dLon = degToRad(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(degToRad(lat1)) *
+        Math.cos(degToRad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadius * c;
+
+    setDistance(distance.toFixed(1));
+    return distance.toFixed(2);
+  };
+
+  const onDirectionClick = () => {
+    window.open(
+      "https://www.google.com/maps/dir/?api=1&origin=" +
+        userLocation.lat +
+        "," +
+        userLocation.lng +
+        "&destination=" +
+        business.geometry.location.lat +
+        "," +
+        business.geometry.location.lng +
+        "&travelmode=driving"
+    );
+  };
 
   return (
     <div
