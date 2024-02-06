@@ -13,4 +13,6 @@ const getGooglePlace = (category, radius, lat, lng) =>
       lng
   );
 
-export default { getGooglePlace };
+export default {
+  getGooglePlace,
+};

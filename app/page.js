@@ -1,5 +1,4 @@
 "use client";
-
 import GlobalApi from "@/Shared/GlobalApi";
 import BusinessList from "@/components/Home/BusinessList";
 import CategoryList from "@/components/Home/CategoryList";
@@ -22,7 +21,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { userLocation, setUserLocation } = useContext(UserLocationContext);
-
   useEffect(() => {
     if (!session?.user) {
       router.push("/Login");
@@ -36,18 +34,19 @@ export default function Home() {
   const getGooglePlace = () => {
     if (category) {
       setLoading(true);
-    }
 
-    GlobalApi.getGooglePlace(
-      category,
-      radius,
-      userLocation.lat,
-      userLocation.lng
-    ).then((resp) => {
-      setBusinessList(resp.data.product.results);
-      setBusinessListOrg(resp.data.product.results);
-      setLoading(false);
-    });
+      GlobalApi.getGooglePlace(
+        category,
+        radius,
+        userLocation.lat,
+        userLocation.lng
+      ).then((resp) => {
+        // console.log(resp.data.product.results);
+        setBusinessList(resp.data.product.results);
+        setBusinessListOrg(resp.data.product.results);
+        setLoading(false);
+      });
+    }
   };
 
   const onRatingChange = (rating) => {
@@ -65,7 +64,6 @@ export default function Home() {
 
     console.log(result);
   };
-
   return (
     <div
       className="grid 

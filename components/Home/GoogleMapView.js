@@ -1,6 +1,6 @@
 import { UserLocationContext } from "@/context/UserLocationContext";
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Markers from "./Markers";
 import { SelectedBusinessContext } from "@/context/SelectedBusinessContext";
 
