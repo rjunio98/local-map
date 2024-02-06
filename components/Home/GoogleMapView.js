@@ -13,7 +13,7 @@ function GoogleMapView({ businessList }) {
 
   const containerStyle = {
     width: "100%",
-    height: "70vh",
+    height: "500px",
   };
 
   useEffect(() => {
@@ -21,22 +21,22 @@ function GoogleMapView({ businessList }) {
       map.panTo(selectedBusiness.geometry.location);
     }
   }, [selectedBusiness]);
-
-  const cordinate = {
-    lat: -34.397,
-    lng: 150.644,
-  };
-
   return (
     <div>
-      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}>
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+        mapIds={["327f00d9bd231a33"]}
+      >
         <GoogleMap
           mapContainerStyle={containerStyle}
+          // center={userLocation}
+
           center={
             !selectedBusiness.name
               ? userLocation
               : selectedBusiness.geometry.location
           }
+          options={{ mapId: "327f00d9bd231a33" }}
           zoom={13}
           onLoad={(map) => setMap(map)}
         >
@@ -44,7 +44,10 @@ function GoogleMapView({ businessList }) {
             position={userLocation}
             icon={{
               url: "/user-location.png",
-              scaledSize: { width: 50, height: 50 },
+              scaledSize: {
+                width: 50,
+                height: 50,
+              },
             }}
           />
           {businessList.map(

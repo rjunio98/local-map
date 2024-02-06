@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Data from "./../../Shared/Data";
+import Data from "../../Shared/Data";
 import Image from "next/image";
 function CategoryList({ onCategoryChange }) {
   const [categoryList, setCategoryList] = useState(Data.CategoryListData);
