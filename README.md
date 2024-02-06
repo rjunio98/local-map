@@ -20,6 +20,8 @@ Este projeto é uma aplicação baseada em localização, desenvolvida com Next.
 3. **Marcação de Locais:** Os usuários podem adicionar marcadores e explorar lugares próximos à sua localização atual.
 4. **Pesquisa de Lugares:** Utilizando a API do Google Places para buscar e exibir informações sobre lugares específicos.
 
+[<img src="./design/local-map.gif" alt="gif do projeto">]
+
 ## Pré-requisitos
 
 ## Clone Repositório
