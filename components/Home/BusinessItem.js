@@ -3,14 +3,12 @@ import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 
 function BusinessItem({ business, showDir = false }) {
-  const { userLocation, setUserLocation } = useContext(UserLocationContext);
-  const [distance, setDistance] = useState();
-
   const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   const photo_ref = business?.photos
     ? business?.photos[0]?.photo_reference
     : "";
-
+  const { userLocation, setUserLocation } = useContext(UserLocationContext);
+  const [distance, setDistance] = useState();
   useEffect(() => {
     calculateDistance(
       business.geometry.location.lat,
@@ -42,7 +40,7 @@ function BusinessItem({ business, showDir = false }) {
     const distance = earthRadius * c;
 
     setDistance(distance.toFixed(1));
-    return distance.toFixed(2);
+    return distance.toFixed(2); // Return the distance with 2 decimal places
   };
 
   const onDirectionClick = () => {
@@ -62,8 +60,8 @@ function BusinessItem({ business, showDir = false }) {
   return (
     <div
       className="w-[195px] flex-shrink-0 p-2
-    rounded-lg shadow-md mb-1
-    bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer"
+     rounded-lg shadow-md mb-1
+     bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer"
     >
       <Image
         src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=${GOOGLE_API_KEY}`}
@@ -72,11 +70,9 @@ function BusinessItem({ business, showDir = false }) {
         height={80}
         className="rounded-lg object-cover h-[90px] "
       />
-
       <h2 className="text-[13px] font-bold mt-1 line-clamp-1">
         {business.name}
       </h2>
-
       <h2
         className="text-[10px] text-gray-400 
                 line-clamp-2"
