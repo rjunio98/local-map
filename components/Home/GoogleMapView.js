@@ -1,8 +1,9 @@
 import { UserLocationContext } from "@/context/UserLocationContext";
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 import React, { useContext } from "react";
+import Markers from "./Markers";
 
-function GoogleMapView() {
+function GoogleMapView({ businessList }) {
   const { userLocation, setUserLocation } = useContext(UserLocationContext);
 
   const containerStyle = {
@@ -30,6 +31,15 @@ function GoogleMapView() {
               scaledSize: { width: 50, height: 50 },
             }}
           />
+          {businessList.map(
+            (item, index) =>
+              index <= 7 && (
+                <Markers
+                  business={item}
+                  key={index}
+                />
+              )
+          )}
         </GoogleMap>
       </LoadScript>
     </div>

@@ -6,6 +6,7 @@ import Provider from "./Provider";
 import HeaderNavBar from "@/components/HeaderNavBar";
 import { useEffect, useState } from "react";
 import { UserLocationContext } from "@/context/UserLocationContext";
+import { SelectedBusinessContext } from "@/context/SelectedBusinessContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ const metadata = {
 
 export default function RootLayout({ children }) {
   const [userLocation, setUserLocation] = useState([]);
+  const [selectedBusiness, setSelectedBusiness] = useState([]);
 
   useEffect(() => {
     getUserLocation();
@@ -26,19 +28,25 @@ export default function RootLayout({ children }) {
       console.log(pos);
       setUserLocation({
         lat: pos.coords.latitude,
-        lng: pos.coords.longitude
+        lng: pos.coords.longitude,
       });
-    }) 
+    });
   };
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <UserLocationContext.Provider value={{userLocation, setUserLocation}}>
-            <HeaderNavBar />
-            {children}
-          </UserLocationContext.Provider>
+          <SelectedBusinessContext.Provider
+            value={{ selectedBusiness, setSelectedBusiness }}
+          >
+            <UserLocationContext.Provider
+              value={{ userLocation, setUserLocation }}
+            >
+              <HeaderNavBar />
+              {children}
+            </UserLocationContext.Provider>
+          </SelectedBusinessContext.Provider>
         </Provider>
       </body>
     </html>
